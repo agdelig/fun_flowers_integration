@@ -37,7 +37,7 @@ public class FunFlowersIntegration implements Integration{
 
     @Override
     public void consume(Purchase prchs) {
-        apiConsumer.consumePurchaseResponse(devId, prchs.getItemId());
+        apiConsumer.consumePurchaseResponse(devId, prchs.getId());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

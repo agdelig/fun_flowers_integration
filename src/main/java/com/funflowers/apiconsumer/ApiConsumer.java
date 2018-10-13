@@ -99,7 +99,7 @@ public class ApiConsumer {
     
     private JSONObject getResponse(HttpURLConnection connection) throws IOException{
         int responseCode = connection.getResponseCode();
-        System.out.println("------------------------------- " + responseCode);
+        System.out.println("------------------------------- " + responseCode + connection.getURL());
         
         if(responseCode == 200){
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -111,9 +111,9 @@ public class ApiConsumer {
                 output.append(line);
             }
             
-            
-            JSONObject json = new JSONObject(output.toString());
-                    System.out.println(output + " ------------------------------- " + json.toString());
+            System.out.println(output + " ------------------------------- ");
+            JSONObject json;
+            json = output.length() > 0 ? new JSONObject(output.toString()) : null;
 
             return json;
         }else{
