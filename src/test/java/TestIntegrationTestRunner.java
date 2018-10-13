@@ -5,7 +5,7 @@
  */
 
 import com.flexionmobile.codingchallenge.integration.IntegrationTestRunner;
-import com.funflowers.com.funflowers.billing.FunFlowersIntegration;
+import com.funflowers.billing.FunFlowersIntegration;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,9 +42,10 @@ public class TestIntegrationTestRunner {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-     @Test
-     public void hello() {
-         IntegrationTestRunner testRunner = new IntegrationTestRunner();
+    @Test
+    public void hello() {
+        System.out.println("**************************************************");
+        IntegrationTestRunner testRunner = new IntegrationTestRunner();
         testRunner.runTests(new FunFlowersIntegration());
-     }
+    }
 }
