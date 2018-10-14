@@ -8,7 +8,7 @@ Maven needs to be insyalled to build the project.
  + Navigate to directory where pom.xml is.  
  + From command line run:  
 ```
-mvn package
+mvn install
 ```
 
 ## Testing  
