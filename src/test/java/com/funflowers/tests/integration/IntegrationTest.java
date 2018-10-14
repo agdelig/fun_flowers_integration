@@ -1,4 +1,4 @@
-package co.funflowers.tests.integration;
+package com.funflowers.tests.integration;
 
 import com.flexionmobile.codingchallenge.integration.IntegrationTestRunner;
 import com.funflowers.billing.FunFlowersIntegration;
