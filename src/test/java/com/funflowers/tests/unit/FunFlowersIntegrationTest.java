@@ -1,3 +1,5 @@
+package com.funflowers.tests.unit;
+
 import com.flexionmobile.codingchallenge.integration.IntegrationTestRunner;
 import com.flexionmobile.codingchallenge.integration.Purchase;
 import com.funflowers.billing.FunFlowersIntegration;
@@ -14,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Agelos Deligiannis 
  */
-public class TestIntegrationTestRunner {
+public class FunFlowersIntegrationTest {
     static JSONObject json;
-    public TestIntegrationTestRunner() {
+    public FunFlowersIntegrationTest() {
     }
     
     @BeforeClass
@@ -27,10 +29,6 @@ public class TestIntegrationTestRunner {
     public static void tearDownClass() {
         json = null;
         assertNull(json);
-        IntegrationTestRunner testRunner = new IntegrationTestRunner();
-        System.out.println("Running Integration tests!");
-        testRunner.runTests(new FunFlowersIntegration());
-        
     }
     
     @Before
