@@ -13,12 +13,23 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 /**
- *
- * @author Agelos
+ * ApiConsumer class 
+ * Used to consume the "http://sandbox.flexionmobile.com/javachallenge/rest/developer/"
+ * api. Routes and spec are defined on the challenge doc.
+ * 
+ * @author Agelos Deligiannis
  */
 public class ApiConsumer {
     private final String baseWebSwrvice = "http://sandbox.flexionmobile.com/javachallenge/rest/developer/";
     
+    /**
+     * Method used to make a POST request to 
+     * "http://sandbox.flexionmobile.com/javachallenge/rest/developer/{devId}/buy/{itemId}"
+     * 
+     * @param devId String
+     * @param itemId String
+     * @return JSONObject
+     */
     public JSONObject buyItemResponse(String devId, String itemId){
         try {
             String buyItemWebService = this.baseWebSwrvice + "%s/buy/%s";
@@ -34,6 +45,13 @@ public class ApiConsumer {
         }
     }
     
+    /**
+     * Method used to make a GET request to  route 
+     * "http://sandbox.flexionmobile.com/javachallenge/rest/developer/{devId}/all" 
+     * 
+     * @param devId String
+     * @return JSONObject
+     */
     public JSONObject allPurchasesResponce(String devId){
         try {
             String allPurchasesWebService = this.baseWebSwrvice + "%s/all";
@@ -45,7 +63,14 @@ public class ApiConsumer {
         }
     }
     
-    public JSONObject consumePurchaseResponse(String devId, String purchaseId){
+    /**
+     * Method used to make a POST request to 
+     * "http://sandbox.flexionmobile.com/javachallenge/rest/developer/{devId}/consume/{purchaseId}" 
+     * 
+     * @param devId String
+     * @param purchaseId String 
+     */
+    public void consumePurchaseResponse(String devId, String purchaseId){
         try {
             String consumePurchaseWebService = this.baseWebSwrvice + "%s/consume/%s";
             String wS = String.format(consumePurchaseWebService, devId, purchaseId);
@@ -55,13 +80,20 @@ public class ApiConsumer {
             body.put("purchaseId", purchaseId);
             
             
-            return makePostRequest(wS, body);
+            makePostRequest(wS, body);
         } catch (Exception ex) {
             Logger.getLogger(ApiConsumer.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
     }
     
+    /**
+     * Private method preparing connection to given url. 
+     * 
+     * @param webService String
+     * @return HttpURLConnection
+     * @throws MalformedURLException
+     * @throws IOException 
+     */
     private HttpURLConnection prepareConnection(String webService) throws MalformedURLException, IOException{
         URL url = new URL(webService);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -70,6 +102,16 @@ public class ApiConsumer {
         return connection;
     }
     
+    /**
+     * Private method making GET request to given url.  
+     * Returns Response as a JSONObject.
+     * 
+     * @param webService Sting
+     * @return JSONObject
+     * @throws MalformedURLException
+     * @throws ProtocolException
+     * @throws IOException 
+     */
     private JSONObject makeGetRequest(String webService) throws MalformedURLException, ProtocolException, IOException{
         HttpURLConnection connection = prepareConnection(webService);
         connection.setRequestMethod("GET");
@@ -78,6 +120,18 @@ public class ApiConsumer {
         return getResponse(connection);
     }
     
+    /**
+     * Private method making POST request to given url 
+     * attaching given body. 
+     * Returns Response as a JSONObject.
+     * 
+     * @param webService String 
+     * @param body String
+     * @return JSONObject
+     * @throws ProtocolException
+     * @throws MalformedURLException
+     * @throws IOException 
+     */
     private JSONObject makePostRequest(String webService, JSONObject body) throws ProtocolException, MalformedURLException, IOException{
         HttpURLConnection connection = prepareConnection(webService);
         connection.setRequestMethod("POST");
@@ -93,6 +147,13 @@ public class ApiConsumer {
         return getResponse(connection);
     }
     
+    /**
+     * Private method used to read response from given connection and return it as a JSONObject. 
+     * 
+     * @param connection HttpURLConnection
+     * @return JSONObject
+     * @throws IOException 
+     */
     private JSONObject getResponse(HttpURLConnection connection) throws IOException{
         int responseCode = connection.getResponseCode();
         System.out.println("------------------------------- " + responseCode + connection.getURL());
