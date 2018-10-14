@@ -2,7 +2,7 @@
 This is a Maven project implementing the Purchase and Integration interfaces provided in the ./lib/pluginapi.jar  
 
 ## Requirement  
-Maven needs to be insyalled to build the project.
+Maven v3.3.9 needs to be insyalled to build the project.
 
 ## Project build  
  + Navigate to directory where pom.xml is.  
