@@ -34,7 +34,6 @@ public class ApiConsumer {
         try {
             String buyItemWebService = this.baseWebSwrvice + "%s/buy/%s";
             String wS = String.format(buyItemWebService, devId, itemId);
-            System.out.println("+++++++++++++++++++++++++++++++++++++\n" + wS);
             JSONObject body = new JSONObject();
             body.put("developerId", devId);
             body.put("itemId", itemId);
@@ -135,7 +134,6 @@ public class ApiConsumer {
     private JSONObject makePostRequest(String webService, JSONObject body) throws ProtocolException, MalformedURLException, IOException{
         HttpURLConnection connection = prepareConnection(webService);
         connection.setRequestMethod("POST");
-        System.out.println(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; " + body);
         
         connection.setDoOutput(true);
         OutputStreamWriter stream = new OutputStreamWriter(connection.getOutputStream());
@@ -156,7 +154,6 @@ public class ApiConsumer {
      */
     private JSONObject getResponse(HttpURLConnection connection) throws IOException{
         int responseCode = connection.getResponseCode();
-        System.out.println("------------------------------- " + responseCode + connection.getURL());
         
         if(responseCode == 200){
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -168,7 +165,6 @@ public class ApiConsumer {
                 output.append(line);
             }
             
-            System.out.println(output + " ------------------------------- ");
             JSONObject json;
             json = output.length() > 0 ? new JSONObject(output.toString()) : null;
 

@@ -70,7 +70,8 @@ public class FunFlowersIntegration implements Integration{
             
             for(Object obj : array){
                 if(obj instanceof JSONObject){
-                    purchases.add(parsePurchase((JSONObject) obj));
+                    Purchase p = parsePurchase((JSONObject) obj);
+                    if(p != null)purchases.add(p);
                 }
             }
         }
@@ -84,9 +85,7 @@ public class FunFlowersIntegration implements Integration{
      */
     public Purchase parsePurchase(JSONObject json){
         Purchase purchase = null;
-        if(json != null){
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + json);
-        }
+ 
         if(json != null 
                 && json.has("id") 
                 && json.has("consumed") 

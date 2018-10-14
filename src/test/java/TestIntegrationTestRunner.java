@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import com.flexionmobile.codingchallenge.integration.IntegrationTestRunner;
 import com.flexionmobile.codingchallenge.integration.Purchase;
 import com.funflowers.billing.FunFlowersIntegration;
+import java.util.List;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Agelos
+ * @author Agelos Deligiannis 
  */
 public class TestIntegrationTestRunner {
     static JSONObject json;
@@ -30,6 +25,12 @@ public class TestIntegrationTestRunner {
     
     @AfterClass
     public static void tearDownClass() {
+        json = null;
+        assertNull(json);
+        IntegrationTestRunner testRunner = new IntegrationTestRunner();
+        System.out.println("Running Integration tests!");
+        testRunner.runTests(new FunFlowersIntegration());
+        
     }
     
     @Before
@@ -43,12 +44,6 @@ public class TestIntegrationTestRunner {
     
     @After
     public void tearDown() {
-    }
-
-    @Test
-    public void hello() {
-        //IntegrationTestRunner testRunner = new IntegrationTestRunner();
-        //testRunner.runTests(new FunFlowersIntegration());
     }
     
     @Test
@@ -90,5 +85,53 @@ public class TestIntegrationTestRunner {
         
         assertFalse(json.has("consumed"));
         assertNull(purchase);
+    }
+    
+    @Test
+    public void purchaseListValidJson(){
+        FunFlowersIntegration integration = new FunFlowersIntegration();
+        JSONObject purchases = new JSONObject();
+        purchases.append("purchases", json);
+        purchases.append("purchases", json);
+        List<Purchase> purchase = integration.parsePurchaseList(purchases);
+        
+        assertEquals(2, purchase.size());
+    }
+    
+    @Test
+    public void purchaseListInvalidJson(){
+        FunFlowersIntegration integration = new FunFlowersIntegration();
+        JSONObject purchases = new JSONObject();
+        purchases.append("purch", json);
+        purchases.append("purch", json);
+        List<Purchase> purchase = integration.parsePurchaseList(purchases);
+        
+        assertEquals(0, purchase.size());
+    }
+    
+    @Test
+    public void purchaseListInvalidPurchaseJson(){
+        FunFlowersIntegration integration = new FunFlowersIntegration();
+        JSONObject purchases = new JSONObject();
+        json.remove("id");
+        purchases.append("purchases", json);
+        purchases.append("purchases", json);
+        List<Purchase> purchase = integration.parsePurchaseList(purchases);
+        
+        assertEquals(0, purchase.size());
+    }
+    
+    @Test
+    public void purchaseListInvalidAndValidPurchaseJson(){
+        FunFlowersIntegration integration = new FunFlowersIntegration();
+        JSONObject purchases = new JSONObject();
+        purchases.append("purchases", json);
+        JSONObject invJson = new JSONObject();
+        invJson.put("id", "dev");
+        invJson.put("itemId", "item1");
+        purchases.append("purchases", invJson);
+        List<Purchase> purchase = integration.parsePurchaseList(purchases);
+        
+        assertEquals(1, purchase.size());
     }
 }
