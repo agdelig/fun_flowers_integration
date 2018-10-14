@@ -9,16 +9,32 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- *
- * @author Agelos
+ * FunFlowersIntegration class 
+ * Class implementing the Integration interface.
+ * 
+ * @author Agelos Deligiannis 
  */
 public class FunFlowersIntegration implements Integration{
     private final ApiConsumer apiConsumer;
     private final String devId;
     
-    public FunFlowersIntegration(){
+    /**
+     * Constructor. 
+     * 
+     * @param devId String
+     */
+    public FunFlowersIntegration(String devId){
         this.apiConsumer = new ApiConsumer();
-        this.devId = "dev";
+        this.devId = devId;
+    }
+    
+    /**
+     * Constructor. 
+     * Defaults to devId = "dev".
+     * Intended for testing purposes
+     */
+    public FunFlowersIntegration(){
+        this("dev");
     }
 
     @Override
@@ -40,7 +56,13 @@ public class FunFlowersIntegration implements Integration{
         apiConsumer.consumePurchaseResponse(devId, prchs.getId());
     }
     
-    private List<Purchase> parsePurchaseList(JSONObject json){
+    /**
+     * Creates a List<Purchase> out of given JSONObject. 
+     * 
+     * @param json JSONObject
+     * @return List<Purchase>
+     */
+    public List<Purchase> parsePurchaseList(JSONObject json){
         List<Purchase> purchases = new ArrayList<>();
         
         if(json.has("purchases")){
@@ -55,13 +77,18 @@ public class FunFlowersIntegration implements Integration{
         return purchases;
     }
     
-    private Purchase parsePurchase(JSONObject json){
+    /**
+     * Creates a Purchase object out of given JSONObject
+     * @param json
+     * @return 
+     */
+    public Purchase parsePurchase(JSONObject json){
         Purchase purchase = null;
         if(json != null){
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + json);
         }
         if(json != null 
-                &&json.has("id") 
+                && json.has("id") 
                 && json.has("consumed") 
                 && json.has("itemId")){
             purchase = new FunFlowersPurchase(json.getString("id"), 
