@@ -17,18 +17,12 @@ import org.json.JSONObject;
  * @author Agelos
  */
 public class ApiConsumer {
-    private final String buyItemWebService = 
-            "http://sandbox.flexionmobile.com/javachallenge/rest/developer/%s/buy/%s";
-    
-    private final String allPurchasesWebService = 
-            "http://sandbox.flexionmobile.com/javachallenge/rest/developer/%s/all";
-    
-    private final String consumePurchaseWebService = 
-            "http://sandbox.flexionmobile.com/javachallenge/rest/developer/%s/consume/%s";
+    private final String baseWebSwrvice = "http://sandbox.flexionmobile.com/javachallenge/rest/developer/";
     
     public JSONObject buyItemResponse(String devId, String itemId){
         try {
-            String wS = String.format(this.buyItemWebService, devId, itemId);
+            String buyItemWebService = this.baseWebSwrvice + "%s/buy/%s";
+            String wS = String.format(buyItemWebService, devId, itemId);
             System.out.println("+++++++++++++++++++++++++++++++++++++\n" + wS);
             JSONObject body = new JSONObject();
             body.put("developerId", devId);
@@ -42,7 +36,8 @@ public class ApiConsumer {
     
     public JSONObject allPurchasesResponce(String devId){
         try {
-            String wS = String.format(this.allPurchasesWebService, devId);
+            String allPurchasesWebService = this.baseWebSwrvice + "%s/all";
+            String wS = String.format(allPurchasesWebService, devId);
             return makeGetRequest(wS);
         } catch (Exception ex) {
             Logger.getLogger(ApiConsumer.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +47,8 @@ public class ApiConsumer {
     
     public JSONObject consumePurchaseResponse(String devId, String purchaseId){
         try {
-            String wS = String.format(this.consumePurchaseWebService, devId, purchaseId);
+            String consumePurchaseWebService = this.baseWebSwrvice + "%s/consume/%s";
+            String wS = String.format(consumePurchaseWebService, devId, purchaseId);
             
             JSONObject body = new JSONObject();
             body.put("developerId", devId);

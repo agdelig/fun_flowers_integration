@@ -16,6 +16,8 @@
             <groupId>com.flexionmobile.codingchallenge</groupId>
             <artifactId>com.flexionmobile.codingchallenge.integration</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/pluginapi.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
