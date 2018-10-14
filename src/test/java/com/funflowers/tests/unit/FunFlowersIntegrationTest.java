@@ -1,6 +1,5 @@
 package com.funflowers.tests.unit;
 
-import com.flexionmobile.codingchallenge.integration.IntegrationTestRunner;
 import com.flexionmobile.codingchallenge.integration.Purchase;
 import com.funflowers.billing.FunFlowersIntegration;
 import java.util.List;
